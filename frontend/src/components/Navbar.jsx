@@ -1,11 +1,15 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { FiBell, FiSearch, FiUser } from "react-icons/fi";
+import { AuthContext } from "../context/AuthContext";
+import { FiBell, FiUser, FiSearch } from "react-icons/fi";
 
-const Navbar = ({ pageTitle }) => {
+const Navbar = () => {
+  const { user, logout } = useContext(AuthContext);
+
   return (
     <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between">
       {/* Page Title */}
-      <h1 className="text-lg font-semibold">{pageTitle}</h1>
+      <h1 className="text-lg font-semibold">Project Management</h1>
 
       {/* Search Bar */}
       <div className="relative">
@@ -17,26 +21,28 @@ const Navbar = ({ pageTitle }) => {
         <FiSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
       </div>
 
-      {/* Icons & Auth Buttons */}
+      {/* User Actions */}
       <div className="flex items-center gap-4">
-        {/* Notification Bell */}
+        {/* Notifications */}
         <div className="relative cursor-pointer">
           <FiBell className="text-xl" />
           <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">3</span>
         </div>
 
-        {/* Profile Avatar */}
-        <Link to="/profile" className="relative cursor-pointer" title="Profile">
-          <FiUser className="text-xl" />
-        </Link>
-
-        {/* Register & Login Buttons */}
-        <Link to="/register" className="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700">
-          Register
-        </Link>
-        <Link to="/login" className="px-4 py-2 text-sm bg-gray-600 text-white rounded-md hover:bg-gray-700">
-          Login
-        </Link>
+        {/* If Logged in, Show User & Logout */}
+        {user ? (
+          <div className="flex items-center gap-4">
+            <span className="text-sm">Welcome, {user.name}</span>
+            <button 
+              onClick={logout} 
+              className="bg-red-500 text-white px-3 py-1 rounded-md text-sm"
+            >
+              Logout
+            </button>
+          </div>
+        ) : (
+          <Link to="/login" className="text-sm text-blue-500">Login</Link>
+        )}
       </div>
     </nav>
   );
