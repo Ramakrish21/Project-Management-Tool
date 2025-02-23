@@ -8,18 +8,20 @@ const activities = [
 
 const RecentActivities = () => {
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-md">
-      <h2 className="text-xl font-semibold mb-4">Recent Activities</h2>
-      <ul className="space-y-3">
+    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 p-5">
+      <h2 className="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">
+        Recent Activities
+      </h2>
+      <ul className="space-y-4">
         {activities.map((activity) => (
           <li key={activity.id} className="flex items-center justify-between border-b pb-2 last:border-none">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center space-x-3">
               {activity.icon}
-              <p className="text-gray-700">{activity.text}</p>
+              <p className="text-gray-700 dark:text-gray-400">{activity.text}</p>
             </div>
-            <span className="text-sm text-gray-500 flex items-center gap-1">
+            <span className="text-sm text-gray-500 dark:text-gray-400 flex items-center space-x-1">
               <FaClock />
-              {activity.time}
+              <span>{activity.time}</span>
             </span>
           </li>
         ))}

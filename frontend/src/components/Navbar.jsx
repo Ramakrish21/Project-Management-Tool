@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FiBell, FiSearch, FiUser } from "react-icons/fi";
 
 const Navbar = ({ pageTitle }) => {
@@ -11,13 +12,13 @@ const Navbar = ({ pageTitle }) => {
         <input
           type="text"
           placeholder="Search..."
-           className="px-4 py-2 border rounded-md outline-none pr-10 w-full"
+          className="px-4 py-2 border rounded-md outline-none pr-10 w-full"
         />
-       <FiSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+        <FiSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
       </div>
 
-      {/* Icons - Notifications & Profile */}
-      <div className="flex items-center gap-4" title="notification">
+      {/* Icons & Auth Buttons */}
+      <div className="flex items-center gap-4">
         {/* Notification Bell */}
         <div className="relative cursor-pointer">
           <FiBell className="text-xl" />
@@ -25,9 +26,17 @@ const Navbar = ({ pageTitle }) => {
         </div>
 
         {/* Profile Avatar */}
-        <div className="relative cursor-pointer" title="Profile">
+        <Link to="/profile" className="relative cursor-pointer" title="Profile">
           <FiUser className="text-xl" />
-        </div>
+        </Link>
+
+        {/* Register & Login Buttons */}
+        <Link to="/register" className="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700">
+          Register
+        </Link>
+        <Link to="/login" className="px-4 py-2 text-sm bg-gray-600 text-white rounded-md hover:bg-gray-700">
+          Login
+        </Link>
       </div>
     </nav>
   );

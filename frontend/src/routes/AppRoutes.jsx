@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboardpage from "../pages/DashboardPage";
-import Projects from "../pages/projects";
+import Projects from "../pages/Projects";
 import Tasks from "../pages/Tasks";
 import Profile from "../pages/Profile";
 import Teams from "../pages/Teams";
@@ -13,7 +13,7 @@ const AppRoutes = () => {
     <Router>
       <DashboardLayout>
         <Routes>
-          <Route path="/dashbord" element={<Dashboardpage />} />
+          <Route path="/dashboard" element={<Dashboardpage />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/profile" element={<Profile />}/>
