@@ -1,12 +1,28 @@
+import { useEffect, useState } from "react";
 import { FaClock, FaTasks, FaCommentDots } from "react-icons/fa";
 
-const activities = [
-  { id: 1, icon: <FaTasks className="text-blue-500 text-xl" />, text: "Task assigned to John", time: "2 hours ago" },
-  { id: 2, icon: <FaCommentDots className="text-green-500 text-xl" />, text: "Alice commented on a task", time: "4 hours ago" },
-  { id: 3, icon: <FaTasks className="text-yellow-500 text-xl" />, text: "Project 'Web App' completed", time: "1 day ago" },
-];
+const iconMap = {
+  task: <FaTasks className="text-blue-500 text-xl" />,
+  comment: <FaCommentDots className="text-green-500 text-xl" />,
+};
 
 const RecentActivities = () => {
+  const [activities, setActivities] = useState([]);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/recent-activities`)
+      .then((response) => response.json())
+      .then((data) =>
+        setActivities(
+          data.map((activity) => ({
+            ...activity,
+            icon: iconMap[activity.type] || <FaTasks className="text-gray-500 text-xl" />,
+          }))
+        )
+      )
+      .catch((error) => console.error("Error fetching activities:", error));
+  }, []);
+
   return (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 p-5">
       <h2 className="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">
