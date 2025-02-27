@@ -7,11 +7,9 @@ const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
 
   return (
-    <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between">
-      {/* Page Title */}
+    <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between fixed left-64 right-0 top-0 w-[calc(100%-16rem)] z-10">
       <h1 className="text-lg font-semibold">Project Management</h1>
 
-      {/* Search Bar */}
       <div className="relative">
         <input
           type="text"
@@ -21,15 +19,12 @@ const Navbar = () => {
         <FiSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
       </div>
 
-      {/* User Actions */}
       <div className="flex items-center gap-4">
-        {/* Notifications */}
         <div className="relative cursor-pointer">
           <FiBell className="text-xl" />
           <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">3</span>
         </div>
 
-        {/* If Logged in, Show User & Logout */}
         {user ? (
           <div className="flex items-center gap-4">
             <span className="text-sm">Welcome, {user.name}</span>

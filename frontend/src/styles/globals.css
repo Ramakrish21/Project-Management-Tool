@@ -1,0 +1,5 @@
+/* Inside src/index.css or src/styles/globals.css */
+nav {
+    width: 100vw; /* Forces full screen width */
+  }
+  
