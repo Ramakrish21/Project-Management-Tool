@@ -8,7 +8,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between fixed left-64 right-0 top-0 w-[calc(100%-16rem)] z-10">
-      <h1 className="text-lg font-semibold">Project Management</h1>
+      <h1 className="text-lg font-semibold">#Project Management Tool</h1>
 
       <div className="relative">
         <input
