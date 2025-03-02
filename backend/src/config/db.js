@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const connectDB = async () => {
   try {
@@ -7,6 +8,7 @@ const connectDB = async () => {
       useUnifiedTopology: true,
     });
     console.log(`MongoDB Connected: ${conn.connection.host}`);
+    console.log("Database connected successfully!");
   } catch (error) {
     console.error(`Error: ${error.message}`);
     process.exit(1);
