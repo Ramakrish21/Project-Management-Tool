@@ -3,9 +3,9 @@ import { AuthContext } from "../../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import Input from "../ui/input";
 import Button from "../ui/button";
+import { register } from "../../utils/api";
 
 const Register = () => {
-  const { register } = useContext(AuthContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
 
@@ -13,13 +13,16 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (register(formData.name, formData.email, formData.password)) {
+    try {
+      await register({ name: formData.name, email: formData.email, password: formData.password });
       alert("Registration successful! You can now log in.");
+      console.log(password);
+      
       navigate("/login");
-    } else {
-      alert("User already exists with this email.");
+    } catch (error) {
+      alert(error.response?.data?.message || "Error registering user.");
     }
   };
 
