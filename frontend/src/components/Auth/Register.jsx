@@ -18,8 +18,6 @@ const Register = () => {
     try {
       await register({ name: formData.name, email: formData.email, password: formData.password });
       alert("Registration successful! You can now log in.");
-      console.log(password);
-      
       navigate("/login");
     } catch (error) {
       alert(error.response?.data?.message || "Error registering user.");
