@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const TaskForm = ({ addTask }) => {
+const TaskFormDropdown = ({ addTask }) => {
   const [task, setTask] = useState({
     title: "",
     description: "",
@@ -43,7 +43,7 @@ const TaskForm = ({ addTask }) => {
         onChange={handleChange}
         className="border rounded p-2 w-full mb-2"
       ></textarea>
-      {/* Dropdown for selecting task status */}
+      {/* Added dropdown for status selection */}
       <select
         name="status"
         value={task.status}
@@ -61,4 +61,4 @@ const TaskForm = ({ addTask }) => {
   );
 };
 
-export default TaskForm;
+export default TaskFormDropdown;

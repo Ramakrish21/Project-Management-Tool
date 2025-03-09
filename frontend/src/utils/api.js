@@ -23,3 +23,9 @@ export const getProjects = () => API.get("/projects").then((res) => res.data);
 export const createProject = (project) => API.post("/projects", project).then((res) => res.data);
 export const updateProject = (id, project) => API.put(`/projects/${id}`, project).then((res) => res.data);
 export const deleteProject = (id) => API.delete(`/projects/${id}`);
+
+// TASK MANAGEMENT API FUNCTIONS
+export const getTasks = () => API.get('/tasks');
+export const createTask = (taskData) => API.post('/tasks', taskData);
+export const updateTask = (id, taskData) => API.put(`/tasks/${id}`, taskData);
+export const deleteTask = (id) => API.delete(`/tasks/${id}`);

@@ -2,36 +2,80 @@ import React, { useState } from "react";
 
 const TaskItem = ({ task, updateTask, deleteTask }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [newName, setNewName] = useState(task.name);
+  const [localTask, setLocalTask] = useState(task);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleEdit = () => {
-    if (isEditing) {
-      updateTask(task.id, { ...task, name: newName });
+  const handleChange = (e) => {
+    setLocalTask({
+      ...localTask,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleUpdate = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      await updateTask(localTask._id || localTask.id, localTask);
+      setIsEditing(false);
+    } catch (err) {
+      setError("Failed to update task.");
+    } finally {
+      setLoading(false);
     }
-    setIsEditing(!isEditing);
   };
 
   return (
-    <div className="p-3 border rounded bg-gray-100 flex justify-between items-center mb-2">
+    <div>
       {isEditing ? (
-        <input
-          type="text"
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-          className="border p-1 rounded w-full"
-        />
+        <>
+          <input
+            type="text"
+            name="title"
+            value={localTask.title}
+            onChange={handleChange}
+            className="border rounded p-1 w-full mb-2"
+          />
+          <textarea
+            name="description"
+            value={localTask.description}
+            onChange={handleChange}
+            className="border rounded p-1 w-full mb-2"
+          ></textarea>
+          <button
+            onClick={handleUpdate}
+            disabled={loading}
+            className="bg-green-500 text-white px-2 py-1 rounded mr-2"
+          >
+            {loading ? "Saving..." : "Save"}
+          </button>
+          <button
+            onClick={() => setIsEditing(false)}
+            className="bg-gray-500 text-white px-2 py-1 rounded"
+          >
+            Cancel
+          </button>
+        </>
       ) : (
-        <span>{task.name}</span>
+        <>
+          <h3 className="font-semibold">{task.title}</h3>
+          <p>{task.description}</p>
+          <button
+            onClick={() => setIsEditing(true)}
+            className="bg-yellow-500 text-white px-2 py-1 rounded mr-2"
+          >
+            Edit
+          </button>
+          <button
+            onClick={() => deleteTask(task._id || task.id)}
+            className="bg-red-500 text-white px-2 py-1 rounded"
+          >
+            Delete
+          </button>
+        </>
       )}
-
-      <div className="flex gap-2">
-        <button onClick={handleEdit} className="bg-yellow-400 px-2 py-1 rounded text-white">
-          {isEditing ? "Save" : "Edit"}
-        </button>
-        <button onClick={() => deleteTask(task.id)} className="bg-red-500 px-2 py-1 rounded text-white">
-          Delete
-        </button>
-      </div>
+      {error && <div className="text-red-600 mt-1">{error}</div>}
     </div>
   );
 };
